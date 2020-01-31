@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smith/pages/products.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './navbar/navbar.dart';
 import './pages/about.dart';
 import './pages/contact.dart';
@@ -14,6 +15,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: TextTheme(
+          title: GoogleFonts.sacramento(
+            fontSize: 24.0,
+          ),
+          body1: GoogleFonts.alice(),
+          button: GoogleFonts.alice(),
+        ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -30,26 +38,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Pages _curPage = Pages.Home;
+  Widget _curPage = About();
 
   void changePage(Pages newPage) {
     setState(() {
-      _curPage = newPage;
+      switch (newPage) {
+        case Pages.Home:
+          _curPage = About();
+          break;
+        case Pages.Products:
+          _curPage = Products();
+          break;
+        case Pages.Contact:
+          _curPage = Contact();
+          break;
+      }
     });
-  }
-
-  Widget getCurPage() {
-    switch (_curPage) {
-      case Pages.Home:
-        return About();
-        break;
-      case Pages.Products:
-        return Products();
-        break;
-      case Pages.Contact:
-        return Contact();
-        break;
-    }
   }
 
   @override
@@ -62,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       body: Container(
+        color: Color.fromRGBO(84, 79, 74, .3),
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,11 +75,17 @@ class _MyHomePageState extends State<MyHomePage> {
               changePage: changePage,
             ),
             Expanded(
-              child: getCurPage(),
+              child: DefaultTextStyle(
+                style: Theme.of(context).textTheme.body1,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  child: _curPage,
+                ),
+              ),
             ),
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Contact(),
               ),
             ),

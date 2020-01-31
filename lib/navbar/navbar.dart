@@ -14,48 +14,59 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget getMenu() {
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Center(
-            child: Text("Serving South Carolina since 1975!"),
+  Widget getMenu(BuildContext context) {
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.title,
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 1.0),
+                child: Text(
+                  "Serving South Carolina since 1975!",
+                ),
+              ),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: FlatButton(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: FlatButton(
                     onPressed: () {
                       changePage(Pages.Home);
                     },
-                    child: Text("Home")),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: FlatButton(
+                    child: Text("Home"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: FlatButton(
                     onPressed: () {
                       changePage(Pages.Products);
                     },
-                    child: Text("Products")),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: FlatButton(
+                    child: Text("Products"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: FlatButton(
                     onPressed: () {
                       changePage(Pages.Contact);
                     },
-                    child: Text("Contact Us")),
-              ),
-            ],
+                    child: Text("Contact Us"),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -69,8 +80,8 @@ class Navbar extends StatelessWidget {
             children: <Widget>[
               getLogo(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: getMenu(),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: getMenu(context),
               ),
             ],
           );
@@ -79,7 +90,7 @@ class Navbar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               getLogo(),
-              getMenu(),
+              getMenu(context),
             ],
           );
         }
